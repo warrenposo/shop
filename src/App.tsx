@@ -10,7 +10,7 @@ import NotFound from "./pages/NotFound";
 import News from "./pages/News";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
-import CreditCards from "./pages/CreditCards";
+import CreditCards from "./pages/CreditCards.tsx";
 import Dumps from "./pages/Dumps";
 import CCchecker from "./pages/CCchecker";
 import Collections from "./pages/Collections";
