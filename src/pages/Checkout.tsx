@@ -26,6 +26,7 @@ const Checkout = () => {
 
   const handlePaid = () => {
     setShowPaidPopup(true);
+    setShowPopup(false); // Close the deposit popup when moving to the payment confirmation popup
   };
 
   const handleSubmit = (e) => {
@@ -82,6 +83,7 @@ const Checkout = () => {
           ))}
         </div>
 
+        {/* Deposit Popup */}
         {showPopup && selectedMethod && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg space-y-4">
@@ -89,22 +91,25 @@ const Checkout = () => {
               <p>Please send ${amount} to the following address:</p>
               <p className="font-mono bg-gray-100 p-2 rounded-md">{selectedMethod.address}</p>
               <QRCodeSVG value={selectedMethod.address} /> {/* Updated component */}
-              <button
-                onClick={() => setShowPopup(false)}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-              >
-                Close
-              </button>
-              <button
-                onClick={handlePaid}
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
-              >
-                I have paid
-              </button>
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handlePaid}
+                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                >
+                  I have paid
+                </button>
+              </div>
             </div>
           </div>
         )}
 
+        {/* Payment Confirmation Popup */}
         {showPaidPopup && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg space-y-4">
@@ -129,12 +134,24 @@ const Checkout = () => {
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-                >
-                  Submit
-                </button>
+                <div className="flex space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowPaidPopup(false);
+                      setShowPopup(true); // Go back to the deposit popup
+                    }}
+                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                  >
+                    Submit
+                  </button>
+                </div>
               </form>
               {emailSent && (
                 <div className="mt-4 text-green-500">
