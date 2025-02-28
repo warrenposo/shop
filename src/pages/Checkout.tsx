@@ -6,7 +6,11 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showPaidPopup, setShowPaidPopup] = useState(false);
   const [amount, setAmount] = useState(50);
+  const [contact, setContact] = useState("");
+  const [description, setDescription] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
 
   const paymentMethods = [
     { name: "Bitcoin", address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
@@ -18,6 +22,23 @@ const Checkout = () => {
   const handleDeposit = (method) => {
     setSelectedMethod(method);
     setShowPopup(true);
+  };
+
+  const handlePaid = () => {
+    setShowPaidPopup(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Simulate sending email
+    setTimeout(() => {
+      setEmailSent(true);
+    }, 2000); // Simulate a 2-second delay for email sending
+  };
+
+  const handleContactSupport = () => {
+    // Replace with your support number
+    alert("Please contact support at +1234567890");
   };
 
   return (
@@ -73,6 +94,58 @@ const Checkout = () => {
                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
               >
                 Close
+              </button>
+              <button
+                onClick={handlePaid}
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+              >
+                I have paid
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showPaidPopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-lg space-y-4">
+              <h2 className="text-2xl font-bold">Payment Confirmation</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-lg font-medium text-gray-700">Contact Information</label>
+                  <input
+                    type="text"
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-lg font-medium text-gray-700">Description</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                >
+                  Submit
+                </button>
+              </form>
+              {emailSent && (
+                <div className="mt-4 text-green-500">
+                  Email sent successfully! If you do not receive a confirmation within 2 minutes, please contact support.
+                </div>
+              )}
+              <button
+                onClick={handleContactSupport}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+              >
+                Contact Support
               </button>
             </div>
           </div>
