@@ -1,114 +1,9 @@
-
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice: number;
-  discount: string;
-  description: string;
-  image: string;
-}
-
-const shoeProducts = [
-  {
-    id: "s1",
-    name: "Urban Walker",
-    price: 69.99,
-    originalPrice: 129.99,
-    discount: "46% OFF",
-    description: "Comfortable city walking shoes at a special discount",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "s2",
-    name: "Last Season Running Shoes",
-    price: 59.99,
-    originalPrice: 119.99,
-    discount: "50% OFF",
-    description: "Previous season's running shoes at half price",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "s3",
-    name: "Clearance Loafers",
-    price: 49.99,
-    originalPrice: 89.99,
-    discount: "44% OFF",
-    description: "Classic loafers on clearance sale",
-    image: "/placeholder.svg"
-  },
-];
-
-const clothingProducts = [
-  {
-    id: "s1",
-    name: "Summer Shorts",
-    price: 19.99,
-    originalPrice: 39.99,
-    discount: "50% OFF",
-    description: "End of season sale on summer shorts",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "s2",
-    name: "Casual Shirts Bundle",
-    price: 59.99,
-    originalPrice: 119.99,
-    discount: "50% OFF",
-    description: "Set of 3 shirts at a special clearance price",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "s3",
-    name: "Designer Jeans",
-    price: 49.99,
-    originalPrice: 99.99,
-    discount: "50% OFF",
-    description: "Limited stock designer jeans at half price",
-    image: "/placeholder.svg"
-  },
-];
 
 const Mydumps = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [userType, setUserType] = useState<"shoes" | "clothes">();
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const storedType = localStorage.getItem("userType") as "shoes" | "clothes";
-    if (!storedType) {
-      navigate("/");
-      return;
-    }
-    setUserType(storedType);
-    setProducts(storedType === "shoes" ? shoeProducts : clothingProducts);
-  }, [navigate]);
-
-  const handleAddToCart = (product: Product) => {
-    // Remove extra properties before adding to cart
-    const { originalPrice, discount, ...cartProduct } = product;
-    
-    // Get existing cart items or initialize empty array
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    
-    // Add new item to cart
-    const updatedCart = [...existingCart, cartProduct];
-    
-    // Save updated cart
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    
-    toast({
-      title: "Added to Cart",
-      description: `${product.name} has been added to your cart.`,
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
@@ -122,41 +17,81 @@ const Mydumps = () => {
             Back to Dashboard
           </button>
         </div>
-        
-        <ScrollArea className="h-[600px] rounded-md border p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {products.map((product) => (
-              <Card key={product.id} className="hover:shadow-lg transition-shadow relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-red-600 text-white px-2 py-1 text-xs font-bold">
-                  {product.discount}
-                </div>
-                <CardHeader>
-                  <CardTitle>{product.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                  />
-                  <p className="text-gray-600 mb-2">{product.description}</p>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-bold text-lg">${product.price}</p>
-                      <p className="text-sm text-gray-500 line-through">${product.originalPrice}</p>
-                    </div>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+
+        {/* Title with Updates */}
+        <h2 className="text-2xl font-bold text-center">
+          Dumps <span className="text-red-600 font-bold">Updates Ready! 2025/01/24</span>
+        </h2>
+
+        {/* Filters Section */}
+        <div className="filters grid grid-cols-3 gap-4 mb-6">
+          <div className="filter-group">
+            <label className="block text-sm font-medium text-gray-700">Category:</label>
+            <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+              <option>All</option>
+            </select>
           </div>
-        </ScrollArea>
+
+          <div className="filter-group">
+            <label className="block text-sm font-medium text-gray-700">Bin:</label>
+            <input
+              type="text"
+              placeholder="Enter BIN"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-medium text-gray-700">Last 4:</label>
+            <input
+              type="text"
+              placeholder="Last 4"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-medium text-gray-700">Type:</label>
+            <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+              <option>All</option>
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-medium text-gray-700">Class:</label>
+            <select className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+              <option>All</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Table Section */}
+        <table className="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-3 border border-gray-300">Number</th>
+              <th className="p-3 border border-gray-300">Balance Checked (MIN=$)</th>
+              <th className="p-3 border border-gray-300">Level</th>
+              <th className="p-3 border border-gray-300">Class</th>
+              <th className="p-3 border border-gray-300">Code</th>
+              <th className="p-3 border border-gray-300">Type</th>
+              <th className="p-3 border border-gray-300">Category</th>
+              <th className="p-3 border border-gray-300">Country</th>
+              <th className="p-3 border border-gray-300">Bank</th>
+              <th className="p-3 border border-gray-300">Action/Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                colSpan="10"
+                className="p-3 border border-gray-300 text-center text-gray-500 italic"
+              >
+                You have no dumps available.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

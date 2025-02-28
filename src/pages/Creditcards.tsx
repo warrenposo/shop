@@ -1,96 +1,72 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
+interface CreditCard {
+  type: string;
+  bin: string;
+  expDate: string;
+  category: string;
+  country: string;
+  state: string;
+  city: string;
+  zip: string;
+  action: string;
 }
 
-const shoeProducts = [
-  {
-    id: "f1",
-    name: "Premium Leather Oxford",
-    price: 199.99,
-    description: "Handcrafted premium leather oxford shoes for formal occasions",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "f2",
-    name: "Trail Runner Pro",
-    price: 149.99,
-    description: "All-terrain trail running shoes with advanced grip technology",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "f3",
-    name: "Urban Commuter",
-    price: 129.99,
-    description: "Lightweight, comfortable shoes perfect for city commuting",
-    image: "/placeholder.svg"
-  },
-];
-
-const clothingProducts = [
-  {
-    id: "f1",
-    name: "Designer Blazer",
-    price: 249.99,
-    description: "Premium tailored blazer for professional and formal settings",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "f2",
-    name: "Merino Wool Sweater",
-    price: 119.99,
-    description: "Luxury merino wool sweater that's both warm and breathable",
-    image: "/placeholder.svg"
-  },
-  {
-    id: "f3",
-    name: "Tailored Dress Shirt",
-    price: 89.99,
-    description: "Premium cotton dress shirt with perfect fit",
-    image: "/placeholder.svg"
-  },
+const creditCards: CreditCard[] = [
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "1202029", category: "Category Info", country: "U.S.A", state: "NE", city: "Omaha", zip: "68108", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "CA", city: "Los Angeles", zip: "90001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "012030", category: "Category Info", country: "U.S.A", state: "TX", city: "Houston", zip: "77001", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "FL", city: "Miami", zip: "33101", action: "Buy (55.00)" },
+  { type: "VISA", bin: "471530", expDate: "020031", category: "Category Info", country: "U.S.A", state: "NY", city: "New York", zip: "10001", action: "Buy (55.00)" }
 ];
 
 const Creditcards = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [userType, setUserType] = useState<"shoes" | "clothes">();
-  const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    const storedType = localStorage.getItem("userType") as "shoes" | "clothes";
-    if (!storedType) {
-      navigate("/");
-      return;
-    }
-    setUserType(storedType);
-    setProducts(storedType === "shoes" ? shoeProducts : clothingProducts);
-  }, [navigate]);
-
-  const handleAddToCart = (product: Product) => {
+  const handleBuyNow = (creditCard: CreditCard) => {
     // Get existing cart items or initialize empty array
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
     
     // Add new item to cart
-    const updatedCart = [...existingCart, product];
+    const updatedCart = [...existingCart, creditCard];
     
     // Save updated cart
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     
+    // Show toast notification
     toast({
       title: "Added to Cart",
-      description: `${product.name} has been added to your cart.`,
+      description: `${creditCard.type} card has been added to your cart.`,
     });
+
+    // Navigate to the checkout page
+    navigate("/checkout");
   };
 
   return (
@@ -108,25 +84,26 @@ const Creditcards = () => {
         
         <ScrollArea className="h-[600px] rounded-md border p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {products.map((product) => (
-              <Card key={product.id} className="hover:shadow-lg transition-shadow">
+            {creditCards.map((creditCard, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <CardTitle>{product.name}</CardTitle>
+                  <CardTitle>{creditCard.type} Card</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                  />
-                  <p className="text-gray-600 mb-2">{product.description}</p>
+                  <p className="text-gray-600 mb-2">BIN: {creditCard.bin}</p>
+                  <p className="text-gray-600 mb-2">Exp Date: {creditCard.expDate}</p>
+                  <p className="text-gray-600 mb-2">Category: {creditCard.category}</p>
+                  <p className="text-gray-600 mb-2">Country: {creditCard.country}</p>
+                  <p className="text-gray-600 mb-2">State: {creditCard.state}</p>
+                  <p className="text-gray-600 mb-2">City: {creditCard.city}</p>
+                  <p className="text-gray-600 mb-2">ZIP: {creditCard.zip}</p>
                   <div className="flex justify-between items-center">
-                    <p className="font-bold text-lg">${product.price}</p>
+                    <p className="font-bold text-lg">{creditCard.action}</p>
                     <button
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() => handleBuyNow(creditCard)}
                       className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
                     >
-                      Add to Cart
+                      Buy Now
                     </button>
                   </div>
                 </CardContent>

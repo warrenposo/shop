@@ -1,74 +1,23 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-}
+import { QRCodeSVG } from "qrcode.react"; // Updated import
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
-  
-  // Bitcoin address (replace with your actual address in a real application)
-  const bitcoinAddress = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh";
+  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [amount, setAmount] = useState(50);
 
-  useEffect(() => {
-    // Retrieve cart items from localStorage
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    
-    if (storedCart.length === 0) {
-      navigate("/cart");
-      return;
-    }
-    
-    setCartItems(storedCart);
+  const paymentMethods = [
+    { name: "Bitcoin", address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
+    { name: "Ethereum", address: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B" },
+    { name: "Bnb Coin", address: "bnb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfj4x4wn" },
+    { name: "Tether", address: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B" },
+  ];
 
-    // Calculate total price
-    const total = storedCart.reduce((sum: number, item: Product) => sum + item.price, 0);
-    setTotalPrice(total);
-  }, [navigate]);
-
-  const handlePayment = () => {
-    setIsPaymentDialogOpen(true);
-  };
-
-  const handlePaymentConfirmation = () => {
-    // Clear the cart after successful payment
-    localStorage.setItem("cart", JSON.stringify([]));
-    
-    // Close dialog
-    setIsPaymentDialogOpen(false);
-    
-    // Show toast notification
-    toast({
-      title: "Payment Verification Initiated",
-      description: "We will contact you to verify your payment.",
-    });
-    
-    // Redirect to dashboard
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 2000);
+  const handleDeposit = (method) => {
+    setSelectedMethod(method);
+    setShowPopup(true);
   };
 
   return (
@@ -77,94 +26,57 @@ const Checkout = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-primary">Checkout</h1>
           <button
-            onClick={() => navigate("/cart")}
+            onClick={() => navigate("/dashboard")}
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
           >
-            Back to Cart
+            Back to Dashboard
           </button>
         </div>
-        
-        <Card className="p-6">
-          <CardHeader>
-            <CardTitle>Order Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex justify-between items-center py-2 border-b">
-                  <div>
-                    <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-600">{item.description}</p>
-                  </div>
-                  <p className="font-bold">${item.price.toFixed(2)}</p>
-                </div>
-              ))}
-              
-              <div className="flex justify-between items-center pt-4 text-lg font-bold">
-                <p>Total</p>
-                <p>${totalPrice.toFixed(2)}</p>
-              </div>
+
+        <div className="space-y-4">
+          <label className="block text-lg font-medium text-gray-700">
+            Amount to Deposit (Minimum $50)
+          </label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            min="50"
+          />
+        </div>
+
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">Choose your payment method:</h2>
+          {paymentMethods.map((method, index) => (
+            <div key={index} className="flex justify-between items-center p-4 border border-gray-300 rounded-md">
+              <span className="text-lg">{method.name}</span>
+              <button
+                onClick={() => handleDeposit(method)}
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Deposit
+              </button>
             </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="p-6">
-          <CardHeader>
-            <CardTitle>Payment with Bitcoin</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-gray-600">
-                Please send the exact amount of ${totalPrice.toFixed(2)} worth of Bitcoin to the following address:
-              </p>
-              
-              <div className="p-4 bg-gray-100 rounded-md break-all font-mono text-sm">
-                {bitcoinAddress}
-              </div>
-              
-              <p className="text-gray-600">
-                After sending the payment, click the button below to confirm your payment.
-              </p>
-              
-              <p className="text-center font-medium text-gray-600 mt-6">
-                Thank you for shopping with us!
-              </p>
-              
-              <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    className="w-full py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors text-lg font-medium"
-                    onClick={handlePayment}
-                  >
-                    I Have Paid
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Payment Confirmation</DialogTitle>
-                    <DialogDescription>
-                      We will verify your payment and contact you at the following information:
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="py-4">
-                    <p className="mb-2"><strong>Email:</strong> support@warrenshop.com</p>
-                    <p className="mb-2"><strong>Phone:</strong> +1 (555) 123-4567</p>
-                    <p className="mb-2"><strong>Hours:</strong> Mon-Fri, 9am-5pm EST</p>
-                  </div>
-                  <DialogFooter>
-                    <Button 
-                      variant="default" 
-                      onClick={handlePaymentConfirmation}
-                      className="w-full"
-                    >
-                      Confirm
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+          ))}
+        </div>
+
+        {showPopup && selectedMethod && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-lg space-y-4">
+              <h2 className="text-2xl font-bold">Deposit {selectedMethod.name}</h2>
+              <p>Please send ${amount} to the following address:</p>
+              <p className="font-mono bg-gray-100 p-2 rounded-md">{selectedMethod.address}</p>
+              <QRCodeSVG value={selectedMethod.address} /> {/* Updated component */}
+              <button
+                onClick={() => setShowPopup(false)}
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Close
+              </button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        )}
       </div>
     </div>
   );
