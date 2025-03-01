@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -71,8 +70,9 @@ const Creditcards = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-4xl mx-auto h-full flex flex-col">
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-primary">Creditcards</h1>
           <button
             onClick={() => navigate("/dashboard")}
@@ -81,23 +81,24 @@ const Creditcards = () => {
             Back to Dashboard
           </button>
         </div>
-        
-        <ScrollArea className="h-[600px] rounded-md border p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        {/* Scrollable Content */}
+        <ScrollArea className="flex-1 rounded-md border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             {creditCards.map((creditCard, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <CardTitle>{creditCard.type} Card</CardTitle>
+                  <CardTitle className="text-2xl font-bold">{creditCard.type} Card</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-2">BIN: {creditCard.bin}</p>
-                  <p className="text-gray-600 mb-2">Exp Date: {creditCard.expDate}</p>
-                  <p className="text-gray-600 mb-2">Category: {creditCard.category}</p>
-                  <p className="text-gray-600 mb-2">Country: {creditCard.country}</p>
-                  <p className="text-gray-600 mb-2">State: {creditCard.state}</p>
-                  <p className="text-gray-600 mb-2">City: {creditCard.city}</p>
-                  <p className="text-gray-600 mb-2">ZIP: {creditCard.zip}</p>
-                  <div className="flex justify-between items-center">
+                <CardContent className="space-y-2">
+                  <p className="text-gray-700"><strong>BIN:</strong> {creditCard.bin}</p>
+                  <p className="text-gray-700"><strong>Exp Date:</strong> {creditCard.expDate}</p>
+                  <p className="text-gray-700"><strong>Category:</strong> {creditCard.category}</p>
+                  <p className="text-gray-700"><strong>Country:</strong> {creditCard.country}</p>
+                  <p className="text-gray-700"><strong>State:</strong> {creditCard.state}</p>
+                  <p className="text-gray-700"><strong>City:</strong> {creditCard.city}</p>
+                  <p className="text-gray-700"><strong>ZIP:</strong> {creditCard.zip}</p>
+                  <div className="flex justify-between items-center mt-4">
                     <p className="font-bold text-lg">{creditCard.action}</p>
                     <button
                       onClick={() => handleBuyNow(creditCard)}

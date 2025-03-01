@@ -13,7 +13,7 @@ const Index = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (type: "shoes" | "clothes") => {
+  const handleLogin = (type: "cvv" | "cvvcite") => {
     if (!email || !password) {
       toast({
         title: "Error",
@@ -33,7 +33,7 @@ const Index = () => {
     navigate("/dashboard");
   };
 
-  const handleSignup = (type: "shoes" | "clothes") => {
+  const handleSignup = (type: "cvv" | "cvvcite") => {
     if (!email || !password) {
       toast({
         title: "Error",
@@ -77,13 +77,13 @@ const Index = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                onClick={() => handleLogin("shoes")}
+                onClick={() => handleLogin("cvv")}
                 className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors"
               >
                 Login to CVV Shop
               </button>
               <button
-                onClick={() => handleSignup("shoes")}
+                onClick={() => handleSignup("cvvcite")}
                 className="w-full border border-primary text-primary py-2 rounded-md hover:bg-primary/10 transition-colors"
               >
                 Sign Up for CVV Shop
@@ -107,13 +107,13 @@ const Index = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                onClick={() => handleLogin("clothes")}
+                onClick={() => handleLogin("cvvcite")}
                 className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors"
               >
                 Login to CVV CITE
               </button>
               <button
-                onClick={() => handleSignup("clothes")}
+                onClick={() => handleSignup("cvvcite")}
                 className="w-full border border-primary text-primary py-2 rounded-md hover:bg-primary/10 transition-colors"
               >
                 Sign Up for CVV cite

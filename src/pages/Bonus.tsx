@@ -13,57 +13,64 @@ const Bonus = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-md mx-auto">
-        {/* Go Back to Dashboard Button */}
-        <div className="flex justify-end mb-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
+      <div className="max-w-4xl mx-auto h-full flex flex-col">
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold text-primary">Bonus Discounts</h1>
           <button
             onClick={() => navigate("/dashboard")}
-            className="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
           >
-            Go Back to Dashboard
+            Back to Dashboard
           </button>
         </div>
 
-        {/* Discount Section */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 text-center">
-          <h2 className="text-xl font-bold mb-4">FULL AUTOMATIC DISCOUNT SYSTEMS</h2>
-          <div className="discount-tier mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-            <h3 className="text-md font-semibold mb-1">FOR ONE TIME DEPOSIT 2005-4008</h3>
-            <p className="mb-2 text-gray-600 text-sm">10% DISCOUNT</p>
+        {/* Discount Cards Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Discount Card 1 */}
+          <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-bold mb-4">FOR ONE TIME DEPOSIT 2005-4008</h3>
+            <p className="text-gray-600 mb-4">Get a <span className="font-bold text-green-600">10% DISCOUNT</span> on your deposit.</p>
             <button
               onClick={() => handleGetDiscount(10)}
-              className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+              className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
             >
               GET DISCOUNT 10%
             </button>
           </div>
-          <div className="discount-tier mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-            <h3 className="text-md font-semibold mb-1">FOR ONE TIME DEPOSIT 4005-6008</h3>
-            <p className="mb-2 text-gray-600 text-sm">15% DISCOUNT</p>
+
+          {/* Discount Card 2 */}
+          <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-bold mb-4">FOR ONE TIME DEPOSIT 4005-6008</h3>
+            <p className="text-gray-600 mb-4">Get a <span className="font-bold text-green-600">15% DISCOUNT</span> on your deposit.</p>
             <button
               onClick={() => handleGetDiscount(15)}
-              className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+              className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
             >
               GET DISCOUNT 15%
             </button>
           </div>
-          <div className="discount-tier mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-            <h3 className="text-md font-semibold mb-1">FOR ONE TIME DEPOSIT 6005-9998</h3>
-            <p className="mb-2 text-gray-600 text-sm">20% DISCOUNT</p>
+
+          {/* Discount Card 3 */}
+          <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-bold mb-4">FOR ONE TIME DEPOSIT 6005-9998</h3>
+            <p className="text-gray-600 mb-4">Get a <span className="font-bold text-green-600">20% DISCOUNT</span> on your deposit.</p>
             <button
               onClick={() => handleGetDiscount(20)}
-              className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+              className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
             >
               GET DISCOUNT 20%
             </button>
           </div>
-          <div className="discount-tier mb-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-            <h3 className="text-md font-semibold mb-1">FOR ONE TIME DEPOSIT 10008</h3>
-            <p className="mb-2 text-gray-600 text-sm">30% DISCOUNT</p>
+
+          {/* Discount Card 4 */}
+          <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-bold mb-4">FOR ONE TIME DEPOSIT 10008</h3>
+            <p className="text-gray-600 mb-4">Get a <span className="font-bold text-green-600">30% DISCOUNT</span> on your deposit.</p>
             <button
               onClick={() => handleGetDiscount(30)}
-              className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+              className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
             >
               GET DISCOUNT 30%
             </button>

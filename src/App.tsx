@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
-import ShoppingCart from "./pages/ShoppingCart";
+import Addbalance from "./pages/Addbalance";
 import Checkout from "./pages/Checkout";
 import Creditcards from "./pages/Creditcards";
 import Dumps from "./pages/Dumps";
@@ -37,7 +37,7 @@ const App = () => (
           <Route path="/mycards" element={<Mycards />} />
           <Route path="/Mydumps" element={<Mydumps />} />
           <Route path="/Bonus" element={<Bonus />} />
-          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/Addbalance" element={<Addbalance />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

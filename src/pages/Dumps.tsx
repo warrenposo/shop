@@ -77,8 +77,9 @@ const BestSellers = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-4xl mx-auto h-full flex flex-col">
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-primary">Dumps</h1>
           <button
             onClick={() => navigate("/dashboard")}
@@ -88,30 +89,23 @@ const BestSellers = () => {
           </button>
         </div>
 
-        <ScrollArea className="h-[600px] rounded-md border p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Scrollable Content */}
+        <ScrollArea className="flex-1 rounded-md border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             {products.map((product, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <CardTitle>{product.bank}</CardTitle>
+                  <CardTitle className="text-2xl font-bold">{product.bank}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-2">
-                    <strong>Balance:</strong> {product.balance}
-                    <br />
-                    <strong>Level:</strong> {product.level}
-                    <br />
-                    <strong>Type:</strong> {product.type}
-                    <br />
-                    <strong>Class:</strong> {product.class}
-                    <br />
-                    <strong>Code:</strong> {product.code}
-                    <br />
-                    <strong>Category:</strong> {product.category}
-                    <br />
-                    <strong>Country:</strong> {product.country}
-                  </p>
-                  <div className="flex justify-between items-center">
+                <CardContent className="space-y-2">
+                  <p className="text-gray-700"><strong>Balance:</strong> {product.balance}</p>
+                  <p className="text-gray-700"><strong>Level:</strong> {product.level}</p>
+                  <p className="text-gray-700"><strong>Type:</strong> {product.type}</p>
+                  <p className="text-gray-700"><strong>Class:</strong> {product.class}</p>
+                  <p className="text-gray-700"><strong>Code:</strong> {product.code}</p>
+                  <p className="text-gray-700"><strong>Category:</strong> {product.category}</p>
+                  <p className="text-gray-700"><strong>Country:</strong> {product.country}</p>
+                  <div className="flex justify-between items-center mt-4">
                     <p className="font-bold text-lg">{product.action}</p>
                     <button
                       onClick={() => handleBuyNow(product)}
