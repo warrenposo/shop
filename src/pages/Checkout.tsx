@@ -11,6 +11,7 @@ const Checkout = () => {
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
 
   const paymentMethods = [
     { name: "Bitcoin", address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
@@ -25,7 +26,11 @@ const Checkout = () => {
   };
 
   const handlePaid = () => {
-    setShowPaidPopup(true);
+    setIsLoading(true); // Start loading
+    setTimeout(() => {
+      setIsLoading(false); // Stop loading after 2 seconds
+      setShowPaidPopup(true); // Show the refresh button
+    }, 2000); // Simulate a 2-second delay
     setShowPopup(false); // Close the deposit popup when moving to the payment confirmation popup
   };
 
@@ -40,6 +45,11 @@ const Checkout = () => {
   const handleContactSupport = () => {
     // Replace with your support number
     alert("Please contact support at +1234567890");
+  };
+
+  const handleRefresh = () => {
+    setShowPaidPopup(false); // Hide the refresh button
+    setShowPopup(true); // Show the deposit popup again
   };
 
   return (
@@ -109,60 +119,29 @@ const Checkout = () => {
           </div>
         )}
 
-        {/* Payment Confirmation Popup */}
+        {/* Loading Spinner */}
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-lg space-y-4">
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+              </div>
+              <p className="text-center">Processing payment...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Refresh Button */}
         {showPaidPopup && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg space-y-4">
               <h2 className="text-2xl font-bold">Payment Confirmation</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-lg font-medium text-gray-700">Contact Information</label>
-                  <input
-                    type="text"
-                    value={contact}
-                    onChange={(e) => setContact(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-lg font-medium text-gray-700">Description</label>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div className="flex space-x-4">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowPaidPopup(false);
-                      setShowPopup(true); // Go back to the deposit popup
-                    }}
-                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-              {emailSent && (
-                <div className="mt-4 text-green-500">
-                  Email sent successfully! If you do not receive a confirmation within 2 minutes, please contact support.
-                </div>
-              )}
+              <p>Your payment is being processed. Please refresh the page to check the status.</p>
               <button
-                onClick={handleContactSupport}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                onClick={handleRefresh}
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
               >
-                Contact Support
+                Refresh
               </button>
             </div>
           </div>
