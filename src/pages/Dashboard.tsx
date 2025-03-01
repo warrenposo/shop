@@ -20,7 +20,7 @@ const menuItems = [
   { title: "Bonus", path: "/Bonus" },
   { title: "Mycards", path: "/Mycards" },
   { title: "Mydumps", path: "/Mydumps" },
-  { title: "Clearance", path: "/clearance" },
+  // { title: "Clearance", path: "/clearance" },
   { title: "Checkbalance", path: "/Addbalance" },
 ];
 
