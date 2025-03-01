@@ -13,6 +13,33 @@
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="text/javascript">
+      (function () {
+          var head = document.getElementsByTagName("head").item(0);
+          var script = document.createElement("script");
+
+          var src = (document.location.protocol == 'https:'
+              ? 'https://www.formilla.com/scripts/feedback.js'
+              : 'http://www.formilla.com/scripts/feedback.js');
+
+          script.setAttribute("type", "text/javascript");
+          script.setAttribute("src", src); script.setAttribute("async", true);
+
+          var complete = false;
+
+          script.onload = script.onreadystatechange = function () {
+              if (!complete && (!this.readyState
+                  || this.readyState == 'loaded'
+                  || this.readyState == 'complete')) {
+                  complete = true;
+                  Formilla.guid = 'cs217e05-fc99-4523-8eb2-f5b8d0204d6b';
+                  Formilla.loadWidgets();
+              }
+          };
+
+          head.appendChild(script);
+      })();
+  </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
