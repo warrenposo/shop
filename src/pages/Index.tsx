@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
@@ -50,18 +49,18 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8 flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl mx-auto space-y-8"
+        className="max-w-4xl w-full space-y-8"
       >
         <h1 className="text-4xl md:text-6xl font-bold text-center text-primary">
           CVV Shop
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+        <div className="flex justify-center">
+          <Card className="p-6 hover:shadow-lg transition-shadow w-full max-w-md">
             <h2 className="text-xl font-semibold mb-4">CVV Shop</h2>
             <div className="space-y-4">
               <Input
@@ -83,40 +82,10 @@ const Index = () => {
                 Login to CVV Shop
               </button>
               <button
-                onClick={() => handleSignup("cvvcite")}
+                onClick={() => handleSignup("cvv")}
                 className="w-full border border-primary text-primary py-2 rounded-md hover:bg-primary/10 transition-colors"
               >
                 Sign Up for CVV Shop
-              </button>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:shadow-lg transition-shadow">
-            <h2 className="text-xl font-semibold mb-4">CVV cite</h2>
-            <div className="space-y-4">
-              <Input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                onClick={() => handleLogin("cvvcite")}
-                className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors"
-              >
-                Login to CVV CITE
-              </button>
-              <button
-                onClick={() => handleSignup("cvvcite")}
-                className="w-full border border-primary text-primary py-2 rounded-md hover:bg-primary/10 transition-colors"
-              >
-                Sign Up for CVV cite
               </button>
             </div>
           </Card>
@@ -125,7 +94,7 @@ const Index = () => {
         <Card className="p-6 mt-8 bg-white/80 backdrop-blur">
           <h2 className="text-2xl font-semibold mb-4">About CVV Shop</h2>
           <p className="text-gray-600 leading-relaxed">
-          CVV Shop is a cutting-edge, cloud-based platform designed to revolutionize the way e-commerce businesses operate. By leveraging advanced technology, CVV Shop empowers businesses to streamline their operations, enhance customer satisfaction, and boost sales. Whether you're a small online store or a large e-commerce enterprise, CVV Shop offers a suite of tools and features tailored to meet your unique need
+            CVV Shop is a cutting-edge, cloud-based platform designed to revolutionize the way e-commerce businesses operate. By leveraging advanced technology, CVV Shop empowers businesses to streamline their operations, enhance customer satisfaction, and boost sales. Whether you're a small online store or a large e-commerce enterprise, CVV Shop offers a suite of tools and features tailored to meet your unique needs.
           </p>
         </Card>
       </motion.div>

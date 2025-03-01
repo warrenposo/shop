@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingCart, Wallet, User } from "lucide-react"; // Import the User icon
 import {
   Drawer,
   DrawerClose,
@@ -28,6 +28,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState<string>("");
   const [userType, setUserType] = useState<"shoes" | "clothes">();
+  const [showCartPopup, setShowCartPopup] = useState<boolean>(false); // State for cart popup
+  const [showWalletPopup, setShowWalletPopup] = useState<boolean>(false); // State for wallet popup
 
   useEffect(() => {
     const storedName = localStorage.getItem("userName");
@@ -42,54 +44,106 @@ const Dashboard = () => {
     setUserType(storedType);
   }, [navigate]);
 
+  // Handle cart icon click
+  const handleCartClick = () => {
+    setShowCartPopup(true);
+    setTimeout(() => setShowCartPopup(false), 2000); // Hide popup after 2 seconds
+  };
+
+  // Handle wallet icon click
+  const handleWalletClick = () => {
+    setShowWalletPopup(true);
+    setTimeout(() => setShowWalletPopup(false), 2000); // Hide popup after 2 seconds
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
       <div className="max-w-4xl mx-auto space-y-8">
+        {/* Header Section */}
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold text-primary">
-            Welcome {userName}!
-          </h1>
-          <Drawer>
-            <DrawerTrigger asChild>
-              <button className="p-2 hover:bg-accent rounded-full">
-                <Menu className="h-6 w-6" />
-              </button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>
-                  {userType === "shoes" ? "CVV menu" : "CVV Menu"}
-                </DrawerTitle>
-              </DrawerHeader>
-              <div className="p-4 space-y-2">
-                {menuItems.map((item) => (
-                  <button
-                    key={item.path}
-                    onClick={() => navigate(item.path)}
-                    className="w-full text-left p-3 hover:bg-accent rounded-lg transition-colors"
-                  >
-                    {item.title}
-                  </button>
-                ))}
-              </div>
-              <DrawerFooter>
-                <DrawerClose asChild>
-                  <button className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors">
-                    Close Menu
-                  </button>
-                </DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </div>
-        <p className="text-xl text-gray-600">
-          {userType === "shoes" 
-            ? "Explore CVV card in the menu" 
-            : "Explore CVV card in the menu"
-          }
-        </p>
+          {/* User Welcome Section */}
+          <div className="flex items-center gap-2">
+            <User className="h-8 w-8 text-primary" /> {/* User Icon */}
+            <div>
+              <p className="text-lg font-semibold text-primary">Welcome</p>
+              <p className="text-sm text-gray-600">{userName}</p> {/* User Name */}
+            </div>
+          </div>
 
-        {/* Added Content Below */}
+          {/* Icons Section */}
+          <div className="flex items-center gap-4">
+            {/* Balance Icon and Text */}
+            <div className="flex items-center gap-2 relative">
+              <button
+                onClick={handleWalletClick}
+                className="p-2 hover:bg-accent rounded-full"
+              >
+                <Wallet className="h-6 w-6 text-primary" />
+              </button>
+              <span className="text-primary">$0.00</span>
+
+              {/* Wallet Popup */}
+              {showWalletPopup && (
+                <div className="absolute top-10 right-0 bg-white p-2 rounded-lg shadow-md border border-gray-200">
+                  <p className="text-sm text-gray-700">You need to add balance</p>
+                </div>
+              )}
+            </div>
+
+            {/* Cart Icon */}
+            <div className="relative">
+              <button
+                onClick={handleCartClick}
+                className="p-2 hover:bg-accent rounded-full"
+              >
+                <ShoppingCart className="h-6 w-6 text-primary" />
+              </button>
+
+              {/* Cart Popup */}
+              {showCartPopup && (
+                <div className="absolute top-10 right-0 bg-white p-2 rounded-lg shadow-md border border-gray-200">
+                  <p className="text-sm text-gray-700">Empty</p>
+                </div>
+              )}
+            </div>
+
+            {/* Menu Icon */}
+            <Drawer>
+              <DrawerTrigger asChild>
+                <button className="p-2 hover:bg-accent rounded-full">
+                  <Menu className="h-6 w-6 text-primary" />
+                </button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>
+                    {userType === "shoes" ? "CVV menu" : "CVV Menu"}
+                  </DrawerTitle>
+                </DrawerHeader>
+                <div className="p-4 space-y-2">
+                  {menuItems.map((item) => (
+                    <button
+                      key={item.path}
+                      onClick={() => navigate(item.path)}
+                      className="w-full text-left p-3 hover:bg-accent rounded-lg transition-colors"
+                    >
+                      {item.title}
+                    </button>
+                  ))}
+                </div>
+                <DrawerFooter>
+                  <DrawerClose asChild>
+                    <button className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors">
+                      Close Menu
+                    </button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+          </div>
+        </div>
+
+        {/* Content Section */}
         <div className="space-y-6">
           <Card className="p-6 bg-white shadow-sm">
             <h2 className="text-2xl font-bold mb-4">SALES RULES:</h2>

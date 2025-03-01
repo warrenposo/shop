@@ -14,10 +14,10 @@ const Checkout = () => {
   const [isLoading, setIsLoading] = useState(false); // New state for loading
 
   const paymentMethods = [
-    { name: "Bitcoin", address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
-    { name: "Ethereum", address: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B" },
-    { name: "Bnb Coin", address: "bnb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfj4x4wn" },
-    { name: "Tether", address: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B" },
+    { name: "Bitcoin", address: "163JAzy3CEz8YoNGDDtu9KxpXgnm5Kn9Rs" },
+    { name: "Ethereum", address: "0x8c0fd3fdc6f56e658fb1bffa8f5ddd65388ba690" },
+    { name: "Bnb Coin", address: "0x8c0fd3fdc6f56e658fb1bffa8f5ddd65388ba690" },
+    { name: "Tether", address: "THaAnBqAvQ3YY751nXqNDzCoczYVQtBKnP" },
   ];
 
   const handleDeposit = (method) => {
