@@ -17,7 +17,7 @@ interface CardProduct {
 }
 
 const cardProducts = [
-  { balance: "$40002", level: "$+$228", type: "MASTERCARD", class: "STANDARD", code: "CREDIT", category: "201", country: "TURKEY", bank: "YAP I'VE KREDI BANXASI, A.S.", action: "Buy ($205)" },
+  { balance: "$40002", level: "$+$228", type: "MASTERCARD", class: "STANDARD", code: "CREDIT", category: "201", country: "TURKEY", bank: "YAPI KREDI,", action: "Buy ($205)" },
   { balance: "$23411", level: "$+$600", type: "VISA", class: "PREMIUM", code: "DEBIT", category: "301", country: "USA", bank: "CHASE BANK", action: "Buy ($365)" },
   { balance: "$75923", level: "$+3700", type: "MASTERCARD", class: "GOLD", code: "CREDIT", category: "401", country: "UK", bank: "HSBC BANK", action: "Buy ($205)" },
   { balance: "402753", level: "$+3100", type: "VISA", class: "CLASSIC", code: "DEBIT", category: "201", country: "CANADA", bank: "RBC BANK", action: "Buy ($265)" },
@@ -26,7 +26,7 @@ const cardProducts = [
   { balance: "$75923", level: "$+3700", type: "MASTERCARD", class: "GOLD", code: "CREDIT", category: "401", country: "UK", bank: "HSBC BANK", action: "Buy ($205)" },
   { balance: "402753", level: "$+3100", type: "VISA", class: "CLASSIC", code: "DEBIT", category: "201", country: "CANADA", bank: "RBC BANK", action: "Buy ($265)" },
   { balance: "432111", level: "$+5500", type: "AMEX", class: "PLATINUM", code: "CREDIT", category: "601", country: "FRANCE", bank: "BNP PARIBAS", action: "Buy ($905)" },
-  { balance: "$40002", level: "$+$228", type: "MASTERCARD", class: "STANDARD", code: "CREDIT", category: "201", country: "TURKEY", bank: "YAP I'VE KREDI BANXASI, A.S.", action: "Buy ($205)" },
+  { balance: "$40002", level: "$+$228", type: "MASTERCARD", class: "STANDARD", code: "CREDIT", category: "201", country: "TURKEY", bank: "YAPI'VE KREDI.", action: "Buy ($205)" },
   { balance: "$23411", level: "$+$600", type: "VISA", class: "PREMIUM", code: "DEBIT", category: "301", country: "USA", bank: "CHASE BANK", action: "Buy ($365)" },
   { balance: "$75923", level: "$+3700", type: "MASTERCARD", class: "GOLD", code: "CREDIT", category: "401", country: "UK", bank: "HSBC BANK", action: "Buy ($205)" },
   { balance: "402753", level: "$+3100", type: "VISA", class: "CLASSIC", code: "DEBIT", category: "201", country: "CANADA", bank: "RBC BANK", action: "Buy ($265)" },
