@@ -53,19 +53,21 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold text-primary">Checkout</h1>
+    <div className="min-h-screen bg-gradient-to-b from-white to-accent/10 p-4 sm:p-8">
+      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+          <h1 className="text-2xl sm:text-4xl font-bold text-primary">Checkout</h1>
           <button
             onClick={() => navigate("/dashboard")}
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-base"
           >
             Back to Dashboard
           </button>
         </div>
 
-        <div className="space-y-4">
+        {/* Amount Input */}
+        <div className="space-y-2 sm:space-y-4">
           <label className="block text-lg font-medium text-gray-700">
             Amount to Deposit (Minimum $50)
           </label>
@@ -73,19 +75,23 @@ const Checkout = () => {
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full p-2 border border-gray-300 rounded-md text-sm sm:text-base"
             min="50"
           />
         </div>
 
+        {/* Payment Methods */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Choose your payment method:</h2>
+          <h2 className="text-xl sm:text-2xl font-bold">Choose your payment method:</h2>
           {paymentMethods.map((method, index) => (
-            <div key={index} className="flex justify-between items-center p-4 border border-gray-300 rounded-md">
+            <div
+              key={index}
+              className="flex flex-col sm:flex-row justify-between items-center p-4 border border-gray-300 rounded-md space-y-2 sm:space-y-0"
+            >
               <span className="text-lg">{method.name}</span>
               <button
                 onClick={() => handleDeposit(method)}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-base"
               >
                 Deposit
               </button>
@@ -95,22 +101,26 @@ const Checkout = () => {
 
         {/* Deposit Popup */}
         {showPopup && selectedMethod && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg space-y-4">
-              <h2 className="text-2xl font-bold">Deposit {selectedMethod.name}</h2>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white p-6 sm:p-8 rounded-lg space-y-4 w-full max-w-md">
+              <h2 className="text-xl sm:text-2xl font-bold">Deposit {selectedMethod.name}</h2>
               <p>Please send ${amount} to the following address:</p>
-              <p className="font-mono bg-gray-100 p-2 rounded-md">{selectedMethod.address}</p>
-              <QRCodeSVG value={selectedMethod.address} /> {/* Updated component */}
-              <div className="flex space-x-4">
+              <p className="font-mono bg-gray-100 p-2 rounded-md text-sm sm:text-base break-all">
+                {selectedMethod.address}
+              </p>
+              <div className="flex justify-center">
+                <QRCodeSVG value={selectedMethod.address} size={128} /> {/* Adjusted size */}
+              </div>
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={() => setShowPopup(false)}
-                  className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+                  className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors text-sm sm:text-base"
                 >
                   Back
                 </button>
                 <button
                   onClick={handlePaid}
-                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors text-sm sm:text-base"
                 >
                   I have paid
                 </button>
@@ -121,8 +131,8 @@ const Checkout = () => {
 
         {/* Loading Spinner */}
         {isLoading && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg space-y-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white p-6 sm:p-8 rounded-lg space-y-4 w-full max-w-md">
               <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
               </div>
@@ -133,13 +143,15 @@ const Checkout = () => {
 
         {/* Refresh Button */}
         {showPaidPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg space-y-4">
-              <h2 className="text-2xl font-bold">Payment Confirmation</h2>
-              <p>Your payment is being processed. Please refresh the page to check the status.</p>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white p-6 sm:p-8 rounded-lg space-y-4 w-full max-w-md">
+              <h2 className="text-xl sm:text-2xl font-bold">Payment Confirmation</h2>
+              <p className="text-sm sm:text-base">
+                Your payment is being processed. Please refresh the page to check the status.
+              </p>
               <button
                 onClick={handleRefresh}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-base"
               >
                 Refresh
               </button>
