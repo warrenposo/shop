@@ -147,7 +147,7 @@ const Checkout = () => {
             <div className="bg-white p-6 sm:p-8 rounded-lg space-y-4 w-full max-w-md">
               <h2 className="text-xl sm:text-2xl font-bold">Payment Confirmation</h2>
               <p className="text-sm sm:text-base">
-                Your payment is being processed. Please refresh the page to check the status.
+                Your payment is being processed. Please refresh the page to check the status or CAll +447453958521 for Enquiries
               </p>
               <button
                 onClick={handleRefresh}
